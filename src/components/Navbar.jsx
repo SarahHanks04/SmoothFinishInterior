@@ -69,7 +69,7 @@ const Navbar = () => {
     <header className="w-full bg-white shadow-md p-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo with Tailwind CSS classes for size */}
-        <img src={Logo1} alt="NavbarImage" className="w-6 h-6 object-contain" /> {/* Adjust w-16 and h-16 as needed */}
+        <img src={Logo1} alt="NavbarImage" className="w-12 h-12 object-contain" /> {/* Adjust w-16 and h-16 as needed */}
         
         {/* Hamburger Menu for Mobile */}
         <button
