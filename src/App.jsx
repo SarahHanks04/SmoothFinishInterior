@@ -9,9 +9,9 @@ function App() {
   const [movieList, setMovieList] = useState([]);
 
   // New Movie State
-  const [newMovieTitle, setNewMovieTitle] = useState("")
-  const [newMovieReleaseDate, setNewMovieReleaseDate] = useState("")
-  const [newMovieReceivedAnOscar, setNewMovieReceivedAnOscar] = useState(false)
+  const [newMovieTitle, setNewMovieTitle] = useState("");
+  const [newMovieReleaseDate, setNewMovieReleaseDate] = useState(0);
+  const [newMovieReceivedAnOscar, setNewMovieReceivedAnOscar] = useState(false);
 
   const moviesCollectionRef = collection(db, "movies");
 
@@ -52,10 +52,22 @@ function App() {
       </div>
 
       <div>
-        <input type="text" placeholder="movie title...." />
-        <input type="number" placeholder="release date...." />
+        <input
+          type="text"
+          placeholder="movie title...."
+          onChange={(e) => setNewMovieTitle(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="release date...."
+          onChange={(e) => setNewMovieReleaseDate(Number(e.target.value))}
+        />
         <div>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            // checked={newMovieReceivedAnOscar}
+            onChange={(e) => setNewMovieReceivedAnOscar(e.target.checked)}
+          />
           <label htmlFor="receivedanoscar">ReceivedAnOscar</label>
         </div>
         <button>Submit Movie</button>
