@@ -8,6 +8,11 @@ import { db } from "./config/firebase";
 function App() {
   const [movieList, setMovieList] = useState([]);
 
+  // New Movie State
+  const [newMovieTitle, setNewMovieTitle] = useState("")
+  const [newMovieReleaseDate, setNewMovieReleaseDate] = useState("")
+  const [newMovieReceivedAnOscar, setNewMovieReceivedAnOscar] = useState(false)
+
   const moviesCollectionRef = collection(db, "movies");
 
   useEffect(() => {
@@ -44,6 +49,16 @@ function App() {
             <p>Date: {movie.releaseDate}</p>
           </div>
         ))}
+      </div>
+
+      <div>
+        <input type="text" placeholder="movie title...." />
+        <input type="number" placeholder="release date...." />
+        <div>
+          <input type="checkbox" />
+          <label htmlFor="receivedanoscar">ReceivedAnOscar</label>
+        </div>
+        <button>Submit Movie</button>
       </div>
     </div>
   );
