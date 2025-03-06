@@ -21,7 +21,6 @@ function App() {
         console.log(filteredData);
         console.log(data);
         setMovieList(filteredData);
-        // console.log(setMovieList)
       } catch (error) {
         console.error(error);
       }
