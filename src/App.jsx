@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import { Auth } from "./components/auth";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "./config/firebase";
 
 function App() {
@@ -15,24 +15,40 @@ function App() {
 
   const moviesCollectionRef = collection(db, "movies");
 
+  const getMovieList = async () => {
+    try {
+      const data = await getDocs(moviesCollectionRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      console.log(filteredData);
+      console.log(data);
+      setMovieList(filteredData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   useEffect(() => {
-    const getMovieList = async () => {
-      try {
-        const data = await getDocs(moviesCollectionRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        console.log(filteredData);
-        console.log(data);
-        setMovieList(filteredData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     getMovieList();
   }, []);
+
+  const onSubmitMovie = async () => {
+    try {
+      await addDoc(moviesCollectionRef, {
+        title: newMovieTitle,
+        releaseDate: newMovieReleaseDate,
+        receivedAnOscar: newMovieReceivedAnOscar,
+      });
+      getMovieList();
+      setNewMovieTitle("");
+      setNewMovieReleaseDate(0);
+      setNewMovieReceivedAnOscar(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -65,12 +81,12 @@ function App() {
         <div>
           <input
             type="checkbox"
-            // checked={newMovieReceivedAnOscar}
+            checked={newMovieReceivedAnOscar}
             onChange={(e) => setNewMovieReceivedAnOscar(e.target.checked)}
           />
           <label htmlFor="receivedanoscar">ReceivedAnOscar</label>
         </div>
-        <button>Submit Movie</button>
+        <button onClick={onSubmitMovie}>Submit Movie</button>
       </div>
     </div>
   );
