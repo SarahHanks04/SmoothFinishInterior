@@ -60,8 +60,9 @@ function App() {
 
   // Delete Movie
   const onDeleteMovie = async (id) => {
+    const movieDoc = doc(db, "movies", id);
     try {
-      await deleteDoc(doc(db, "movies", id));
+      await deleteDoc(movieDoc);
       getMovieList();
     } catch (error) {
       console.error(error);
@@ -81,6 +82,10 @@ function App() {
               {movie.title}
             </h2>
             <p>Date: {movie.releaseDate}</p>
+
+            <button onClick={() => onDeleteMovie(movie.id)}>
+              Delete Movie
+            </button>
           </div>
         ))}
       </div>
