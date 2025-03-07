@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import { Auth } from "./components/auth";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "./config/firebase";
 
 function App() {
@@ -15,6 +21,7 @@ function App() {
 
   const moviesCollectionRef = collection(db, "movies");
 
+  // Get Movie List
   const getMovieList = async () => {
     try {
       const data = await getDocs(moviesCollectionRef);
@@ -29,11 +36,12 @@ function App() {
       console.error(error);
     }
   };
-  
+
   useEffect(() => {
     getMovieList();
   }, []);
 
+  // Add/create and Submit Movie
   const onSubmitMovie = async () => {
     try {
       await addDoc(moviesCollectionRef, {
@@ -45,6 +53,16 @@ function App() {
       setNewMovieTitle("");
       setNewMovieReleaseDate(0);
       setNewMovieReceivedAnOscar(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Delete Movie
+  const onDeleteMovie = async (id) => {
+    try {
+      await deleteDoc(doc(db, "movies", id));
+      getMovieList();
     } catch (error) {
       console.error(error);
     }
