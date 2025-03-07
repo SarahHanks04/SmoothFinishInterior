@@ -54,9 +54,9 @@ function App() {
         receivedAnOscar: newMovieReceivedAnOscar,
       });
       getMovieList();
-      setNewMovieTitle("");
-      setNewMovieReleaseDate(0);
-      setNewMovieReceivedAnOscar(false);
+      // setNewMovieTitle("");
+      // setNewMovieReleaseDate(0);
+      // setNewMovieReceivedAnOscar(false);
     } catch (error) {
       console.error(error);
     }
