@@ -224,7 +224,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
-      <Navbar />
+      {/* <Navbar /> */}
       <Auth />
 
       {/* Movie List Section */}
