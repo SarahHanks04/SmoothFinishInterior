@@ -10,7 +10,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "./config/firebase";
+import { auth, db } from "./config/firebase";
 
 function App() {
   const [movieList, setMovieList] = useState([]);
@@ -50,7 +50,9 @@ function App() {
         title: newMovieTitle,
         releaseDate: newMovieReleaseDate,
         receivedAnOscar: newMovieReceivedAnOscar,
+        userId: auth?.currentUser?.uid,
       });
+      
       getMovieList();
       setNewMovieTitle("");
       setNewMovieReleaseDate(0);
